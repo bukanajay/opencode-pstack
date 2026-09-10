@@ -5,7 +5,7 @@
 directly. If you use opencode, install this.
 
 `pstack` — created by [poteto](https://x.com/poteto) at Cursor, from the same
-skills he uses to ship high-quality code — turns the agent into a real
+skills they uses to ship high-quality code — turns the agent into a real
 engineering team: rigorous playbooks for bugs, features, refactors, reviews,
 and parallel agent fleets, instead of slop at speed. This repo makes all of
 that usable from opencode.
