@@ -67,11 +67,13 @@ PAGE = """<!DOCTYPE html>
   #cv { position: fixed; inset: 0; display: block; }
   header { position: fixed; top: 0; left: 0; right: 0; display: flex;
            align-items: baseline; gap: 14px; padding: 12px 18px;
-           pointer-events: none; }
+           pointer-events: none; z-index: 5; }
   header h1 { font-size: 15px; margin: 0; letter-spacing: .04em; }
   header h1 .dot { color: #4ade80; animation: blink 1.6s infinite; }
   select#proj { background: #111827; color: #d1d5db; border: 1px solid #374151;
-                border-radius: 999px; padding: 4px 10px; font-size: 12px; max-width: 230px; }
+                border-radius: 999px; padding: 4px 10px; font-size: 12px; max-width: 230px;
+                pointer-events: auto; }
+  header a { pointer-events: auto; }
   @keyframes blink { 50% { opacity: .25; } }
   header .meta { color: #9ca3af; font-size: 12px; }
   #panel { position: fixed; top: 64px; right: 14px; width: 300px;
@@ -284,10 +286,10 @@ ISLAND = """<!DOCTYPE html>
          overflow: hidden; }
   #cv { position: fixed; inset: 0; display: block; }
   header { position: fixed; top: 12px; left: 14px; right: 14px; display: flex;
-           align-items: center; gap: 10px; pointer-events: none; }
+           align-items: center; gap: 10px; pointer-events: none; z-index: 5; }
   .pill { background: rgba(20,32,24,.85); border: 1px solid #2c4433;
           border-radius: 999px; padding: 5px 13px; font-size: 12px; }
-  select.pill { color: #d7e5da; max-width: 220px; }
+  select.pill { color: #d7e5da; max-width: 220px; pointer-events: auto; }
   select.pill option { color: #111; }
   header nav { margin-left: auto; pointer-events: auto; }
   header nav a { color: #a7c4ad; text-decoration: none; font-size: 12px;
@@ -748,10 +750,10 @@ WAR = """<!DOCTYPE html>
          overflow: hidden; }
   #cv { position: fixed; inset: 0; display: block; }
   header { position: fixed; top: 12px; left: 14px; right: 14px; display: flex;
-           align-items: center; gap: 10px; pointer-events: none; }
+           align-items: center; gap: 10px; pointer-events: none; z-index: 5; }
   .pill { background: rgba(30,16,12,.85); border: 1px solid #6b3a1f;
           border-radius: 999px; padding: 5px 13px; font-size: 12px; }
-  select.pill { color: #f0d9b5; max-width: 220px; }
+  select.pill { color: #f0d9b5; max-width: 220px; pointer-events: auto; }
   select.pill option { color: #111; }
   header nav { margin-left: auto; pointer-events: auto; display: flex; gap: 8px; }
   header nav a { color: #e8b26a; text-decoration: none; font-size: 12px;
