@@ -69,6 +69,23 @@ Then run `/setup-pstack` once to map each role to a model you have in opencode
 until you opt out. (Cursor implements this with a `reminder`; in opencode the
 skill text plus your command history carry it.)
 
+## Fleet board (agent visualization)
+
+Cursor animates background agents natively; opencode does not. This port
+ships `script/pstack-fleet.py`, a live fleet board read from opencode's
+session store. Run it in a second pane while `/swarm`, `/arena`,
+`/interrogate`, or `/poteto-mode` fans out:
+
+```sh
+python3 script/pstack-fleet.py --watch          # live table board
+python3 script/pstack-fleet.py --once --plain # snapshot for chat
+python3 script/pstack-fleet-serve.py --open   # motion boards: / Chakravyuh, /island village, /graph
+```
+
+See `FLEET.md` for swarm and arena labels, the optional log hook
+(`plugins/pstack-fleet.js`, installed by `install.sh`), scope flags, and
+the configurable character cast (Mahabharata by default).
+
 ## Layout
 
 | Path | What |

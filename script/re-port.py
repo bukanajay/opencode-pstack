@@ -17,6 +17,12 @@ What it does (idempotent):
 
 Safe to re-run after `git pull` in the upstream clone. Review with
 `git status` / `git diff` before committing.
+
+Port-owned additions survive a re-port untouched: FLEET.md, plugins/,
+fleet/, script/pstack-fleet.py, install.sh, config/, OPENCODE.md,
+README.md.
+Only skills/, agents/, commands/, docs/, automations/, and
+LICENSE.upstream are regenerated from upstream.
 """
 import argparse
 import os
@@ -154,14 +160,19 @@ def port_agents(agents_src):
 
 
 # skill -> extra command guidance (beyond the generic skill-loader template)
+FLEET_SNAPSHOT = (
+    " At fan-out and each drain, show the fleet board in your reply: run"
+    " `python3 ~/.config/opencode/scripts/pstack-fleet.py --once --plain`"
+    " via bash (fallback: this repo's `script/pstack-fleet.py`) and paste the board."
+)
 COMMAND_GUIDANCE = {
     "poteto-mode": "Match the request to a playbook, copy its steps into a todo list verbatim, then work them.",
     "how": "The question text follows the command.",
     "why": "The question text follows the command. Use available evidence sources (git, docs, issues); skip MCP-only steps that have no opencode equivalent.",
     "architect": "Settle types, signatures, and module shape before implementing.",
-    "arena": "Spawn parallel candidates via the task tool, pick a base, graft strengths.",
-    "swarm": "Fan out parallel workers via the task tool, drain them, return one report.",
-    "interrogate": "Run adversarial multi-model review of the diff under discussion.",
+    "arena": "Spawn parallel candidates via the task tool, pick a base, graft strengths." + FLEET_SNAPSHOT,
+    "swarm": "Fan out parallel workers via the task tool, drain them, return one report." + FLEET_SNAPSHOT,
+    "interrogate": "Run adversarial multi-model review of the diff under discussion." + FLEET_SNAPSHOT,
     "setup-pstack": "Detect models via `opencode models` and write `.opencode/pstack-models.md`.",
     "reflect": "Review the active session transcript and route learnings to skill edits.",
     "no-comments": "Spawn the comment-sicko subagent over the diff, fix accepted findings.",
