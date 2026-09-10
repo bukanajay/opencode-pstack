@@ -1,0 +1,15 @@
+{
+  // Optional opencode.json additions for opencode-pstack.
+  // Merge into your project .opencode/opencode.json or ~/.config/opencode/opencode.json.
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    // Let agents load pstack skills on demand.
+    "skill": {
+      "*": "allow"
+    },
+    // Let the build agent delegate to poteto-agent / general / explore.
+    // (Subagents inherit tool access from their own config; this only
+    // controls whether `build` may invoke them via the task tool.)
+    "task": "allow"
+  }
+}
