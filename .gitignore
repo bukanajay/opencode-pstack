@@ -1,5 +1,8 @@
 .DS_Store
 node_modules/
+# Python bytecode cache from running the fleet scripts.
+__pycache__/
+*.pyc
 # Local install target (./install.sh --project) and local model config.
 # The repo ships the sources; never commit installed copies.
 .opencode/

@@ -1,0 +1,85 @@
+{
+  "cast": [
+    {
+      "bearing": "strategy before action",
+      "color": "blue",
+      "name": "Krishna",
+      "suggested": "coordinator, cross-judge",
+      "symbol": "◈",
+      "title": "the Counselor",
+      "token": "🐚"
+    },
+    {
+      "bearing": "one target, one arrow",
+      "color": "green",
+      "name": "Arjun",
+      "suggested": "swarm workers",
+      "symbol": "➶",
+      "title": "the Archer",
+      "token": "🏹"
+    },
+    {
+      "bearing": "outlasts uphill odds",
+      "color": "yellow",
+      "name": "Karna",
+      "suggested": "race arms",
+      "symbol": "☀",
+      "title": "the Resilient",
+      "token": "🛡️"
+    },
+    {
+      "bearing": "holds the line",
+      "color": "white",
+      "name": "Bhishma",
+      "suggested": "reviewers",
+      "symbol": "▲",
+      "title": "the Guardian",
+      "token": "🎯"
+    },
+    {
+      "bearing": "fearless challenge",
+      "color": "magenta",
+      "name": "Draupadi",
+      "suggested": "interrogate",
+      "symbol": "◆",
+      "title": "the Questioner",
+      "token": "🔥"
+    },
+    {
+      "bearing": "verdicts weighed on evidence",
+      "color": "cyan",
+      "name": "Yudhishthira",
+      "suggested": "verifier, lead judgment",
+      "symbol": "○",
+      "title": "the Judge",
+      "token": "👑"
+    },
+    {
+      "bearing": "moves the mountain",
+      "color": "red",
+      "name": "Bhima",
+      "suggested": "heavy workers",
+      "symbol": "●",
+      "title": "the Strong",
+      "token": "🔨"
+    },
+    {
+      "bearing": "counsel from afar",
+      "color": "dim",
+      "name": "Vidura",
+      "suggested": "explore, scout",
+      "symbol": "☾",
+      "title": "the Far-Seer",
+      "token": "🦉"
+    },
+    {
+      "bearing": "breaches the unbreachable",
+      "color": "bright_red",
+      "name": "Abhimanyu",
+      "suggested": "spike, first probe, scout",
+      "symbol": "♞",
+      "title": "the Breacher",
+      "token": "⚔️"
+    }
+  ]
+}

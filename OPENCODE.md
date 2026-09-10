@@ -11,6 +11,7 @@ this table. `setup-pstack` (rewritten for opencode) and the
 | `subagent_type: "Comment Sicko"` | `comment-sicko` subagent, normally via `/no-comments` |
 | `readonly: true` on a delegation | `plan` agent, or deny `edit`/`bash` for that delegation |
 | `run_in_background: true` | Background `task` invocation; drain results before the report step |
+| Cursor's animated background-agent cards | `script/pstack-fleet.py --watch` in a second pane (see `FLEET.md`); `--once --plain` for a chat snapshot |
 | `AskQuestion` tool | `question` tool |
 | Model slugs `grok-4.6-fast-xhigh`, `claude-fable-5-thinking-max`, `gpt-5.6-sol-max`, `opus`/`claude-opus-5` | Your opencode `provider/model-id` values per `.opencode/pstack-models.md` (`/setup-pstack`); `inherit-parent`/`auto` = omit the override |
 | `~/.cursor/rules/pstack-models.mdc` (`alwaysApply`) | `.opencode/pstack-models.md` (project) or `~/.config/opencode/pstack-models.md` (global); plain markdown, no `.mdc` mechanism |
