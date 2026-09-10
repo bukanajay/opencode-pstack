@@ -1,14 +1,19 @@
 # opencode-pstack
 
-An [opencode](https://opencode.ai) port of [pstack](https://github.com/backnotprop/pstack)
-(itself a mirror of `cursor/plugins/pstack`): skills and principles for rigorous
-AI-assisted engineering. `pstack` turns the agent into a real engineering team;
-this repo makes that usable from opencode.
+**This is a port of [pstack](https://github.com/backnotprop/pstack) for
+[opencode](https://opencode.ai) users.** If you use Cursor, use upstream pstack
+directly. If you use opencode, install this.
 
-> **Status.** Community port, not affiliated with Cursor, poteto, or opencode.
-> Upstream source: `backnotprop/pstack` (MIT). See `LICENSE.upstream`.
-> Skill bodies are kept verbatim except where Cursor-only concepts needed an
-> opencode translation (see `OPENCODE.md`).
+`pstack` — created by [poteto](https://x.com/poteto) at Cursor, from the same
+skills he uses to ship high-quality code — turns the agent into a real
+engineering team: rigorous playbooks for bugs, features, refactors, reviews,
+and parallel agent fleets, instead of slop at speed. This repo makes all of
+that usable from opencode.
+
+> **Status.** Unofficial community port, not affiliated with Cursor, poteto, or
+> the opencode team. Skill bodies are kept verbatim except where Cursor-only
+> concepts needed an opencode translation (see `OPENCODE.md`). The original
+> license is kept unchanged (`LICENSE.upstream`); full credit below.
 
 ## Can pstack be used with opencode as-is?
 
@@ -94,8 +99,31 @@ result against opencode's loading rules. If upstream adds a skill that names a
 new Cursor-only concept, add its directory to `AFFECTED` in `script/re-port.py`
 (or extend `OPENCODE.md`) before re-running.
 
+### Auto-tracking
+
+This repo tracks upstream automatically via
+`.github/workflows/track-upstream.yml`: every Monday 07:00 UTC (and on manual
+dispatch) it clones `backnotprop/pstack`, runs `script/re-port.py`, and — only
+if the output differs — opens a PR with the re-ported tree for review. Nothing
+is pushed to `main` without a human merge. The check is byte-level, so a PR
+means upstream actually changed something worth looking at.
+
+## Credits
+
+- **pstack** by [poteto](https://x.com/poteto) (Cursor) — the skills,
+  playbooks, principles, agents, and guide this repo ports. Original source:
+  [`cursor/plugins`](https://github.com/cursor/plugins/tree/main/pstack).
+- Standalone mirror by [@backnotprop](https://github.com/backnotprop/pstack),
+  which this port tracks as upstream.
+- Opencode port (frontmatter normalization, slash commands, agents,
+  `OPENCODE.md` translation, `setup-pstack` rewrite, installer, re-port
+  script) by the maintainers of this repo.
+
 ## License
 
-MIT for the port additions. Upstream files remain under their MIT license
-(`LICENSE.upstream`). If you use "opencode" in this project's name publicly,
-note it is not built by the opencode team.
+The original pstack license is kept unchanged in [`LICENSE.upstream`](LICENSE.upstream)
+(MIT, covering all verbatim upstream files: `skills/`, `agents/` bodies,
+`docs/`, `automations/`). The port additions in this repo (frontmatter fixes,
+`commands/`, `OPENCODE.md`, `install.sh`, `script/`, opencode rewrites) are
+likewise released under the MIT license. If you use "opencode" in this
+project's name publicly, note it is not built by the opencode team.

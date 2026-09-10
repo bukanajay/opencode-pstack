@@ -1,2 +1,5 @@
 .DS_Store
 node_modules/
+# Local install target (./install.sh --project) and local model config.
+# The repo ships the sources; never commit installed copies.
+.opencode/

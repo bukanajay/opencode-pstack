@@ -1,0 +1,37 @@
+name: Track pstack upstream
+
+on:
+  schedule:
+    # Mondays 07:00 UTC
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  re-port:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone upstream pstack
+        run: git clone --depth 1 https://github.com/backnotprop/pstack /tmp/pstack-upstream
+
+      - name: Re-port
+        run: ./script/re-port.py --upstream /tmp/pstack-upstream
+
+      - name: Open PR if upstream changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "Re-port pstack upstream"
+          title: "Track upstream pstack"
+          body: >-
+            Automated re-port of [`backnotprop/pstack`](https://github.com/backnotprop/pstack)
+            via `./script/re-port.py`. The check is byte-level: this PR exists only
+            because upstream changed something. Review the diff (watch for new
+            Cursor-only concepts needing `OPENCODE.md` or `AFFECTED` entries),
+            then merge.
+          branch: chore/track-upstream
+          delete-branch: true
