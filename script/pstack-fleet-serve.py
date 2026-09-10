@@ -995,8 +995,15 @@ async function poll() {
   setTimeout(poll, 2000);
 }
 function progress(a) {
-  if (!a.todos || !a.todos.total) return 0;
+  if (!a.todos || !a.todos.total) return null;   // no todo signal, not 0%
   return a.todos.done / a.todos.total;
+}
+// Stable per-warrior spread along the corridor, so todo-less workers file
+// inside instead of stacking on one another at the gate mouth.
+function stagger(id) {
+  let h = 0; const k = String(id || '?');
+  for (let i = 0; i < k.length; i++) h = (h * 31 + k.charCodeAt(i)) >>> 0;
+  return (h % 5) * 0.02;
 }
 function sync() {
   if (W < 200 || H < 200) return;          // wait for a real viewport before mustering
@@ -1040,7 +1047,12 @@ function march(t, dt, s, F) {
     if (s.mode !== 'field') {
       if (stepTo(stx, stz)) { s.mode = 'field'; s.s = Math.max(0, s.s); }
     } else {
-      const target = Math.min(1, s.depth + s.jit);
+      // No todo signal (subagents rarely write todos): muster just inside
+      // the gate instead of piling up at its mouth. Real progress,
+      // including 0/total, still maps exactly.
+      const base = (s.depth === null || s.depth === undefined)
+        ? 0.10 + stagger(s.id) : s.depth;
+      const target = Math.min(1, base + s.jit);
       s.s += Math.sign(target - s.s) * Math.min(Math.abs(target - s.s), dt * 0.14);
       const p = corrPosW(F, s, t); s.wx = p.wx; s.wz = p.wz;
     }
@@ -1642,7 +1654,8 @@ function showCard(id) {
     '<span class="tag role">' + (d.agent || '?') + '</span>';
   let depth = 'muster line';
   const p = progress(d);
-  if (p >= 0.99) depth = 'at the heart';
+  if (p === null) depth = d.live ? 'on the field' : 'muster line';
+  else if (p >= 0.99) depth = 'at the heart';
   else if (p >= 0.66) depth = 'inner rings';
   else if (p >= 0.33) depth = 'breaching';
   else if (p > 0) depth = 'advancing';

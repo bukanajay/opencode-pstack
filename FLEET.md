@@ -62,7 +62,10 @@ Draupadi holds living flame, Yudhishthira wears his crown, Vidura
 counsels with an owl on his shoulder, Abhimanyu crosses twin swords.
 
 Ring depth marks todo progress, so breaching the formation means
-finishing the work. Warriors muster from the camp, thread the one open
+finishing the work. Live sessions with no todos (most subagents never
+write any) muster just inside the gate, spread along the corridor, so a
+fan-out reads as filed inside rather than stuck at the mouth. Warriors
+muster from the camp, thread the one open
 spiral to their depth, and unwind back out the same gate when they go
 idle — they never cross a ring wall. Click any warrior for its card. A
 project switcher in the header moves the view between projects; it
