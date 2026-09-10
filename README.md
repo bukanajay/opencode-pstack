@@ -82,11 +82,12 @@ python3 script/pstack-fleet.py --once --plain # snapshot for chat
 python3 script/pstack-fleet-serve.py --open   # motion boards: / Chakravyuh, /island village, /graph
 ```
 
-![Kurukshetra fleet board](docs/assets/kurukshetra.png)
+[![Kurukshetra fleet board](docs/assets/kurukshetra.gif)](docs/assets/kurukshetra.mp4)
 
 *The Chakravyuh at `/`: live sessions march from camp through the one open
-gate, ring depth is todo progress. [Watch the 3-second
-clip](docs/assets/kurukshetra.mp4).*
+gate, ring depth is todo progress. Click for full quality
+([mp4](docs/assets/kurukshetra.mp4),
+[still](docs/assets/kurukshetra.png)).*
 
 See `FLEET.md` for swarm and arena labels, the optional log hook
 (`plugins/pstack-fleet.js`, installed by `install.sh`), scope flags, and
