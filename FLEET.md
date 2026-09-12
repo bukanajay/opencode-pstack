@@ -110,6 +110,11 @@ Use `--session <id>` to focus one parent and its children, `--all` to
 watch every project, `--live-window <s>` to tune what counts as live
 (default 60).
 
+Camp history is capped: the web board always shows every live session
+but rests at most `--camp-max` idle ones, most recent first (default
+10, `?campmax=` per view). Older idle sessions count as `+N` beside the
+camp pill instead of crowding the field.
+
 ## Swarm and arena labels
 
 Session titles do not carry worker names, so for `/swarm` and `/arena`

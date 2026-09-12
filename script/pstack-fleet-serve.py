@@ -245,7 +245,9 @@ function draw(t) {
     ctx.fillText(d.sub || '', fx, fy + R + 26);
   }
   const ago = ((performance.now() - pollAt) / 1000).toFixed(0);
-  meta.textContent = D.live + ' live / ' + D.shown + ' shown · refreshed ' + ago + 's ago';
+  meta.textContent = D.live + ' live / ' + D.shown + ' shown' +
+    ((D.hidden || 0) > 0 ? ' (+' + D.hidden + ' older hidden)' : '') +
+    ' · refreshed ' + ago + 's ago';
   if (selected) showPanel(selected);
   requestAnimationFrame(draw);
 }
@@ -320,7 +322,7 @@ ISLAND = """<!DOCTYPE html>
 <header>
   <span class="pill" id="clock"></span>
   <span class="pill">⚙️ <b id="c-work">0</b> working</span>
-  <span class="pill">💤 <b id="c-rest">0</b> resting</span>
+  <span class="pill">💤 <b id="c-rest">0</b> resting <span id="c-hidden" style="opacity:.55"></span></span>
   <span class="pill">🏠 <b id="c-home">0</b> huts</span>
   <select id="proj" class="pill" title="project"></select>
   <nav><a href="/graph">graph view</a></nav>
@@ -617,6 +619,7 @@ function draw(t, dt) {
   // counters + clock
   document.getElementById('c-work').textContent = work;
   document.getElementById('c-rest').textContent = rest;
+  document.getElementById('c-hidden').textContent = (D.hidden || 0) > 0 ? '+' + D.hidden : '';
   document.getElementById('c-home').textContent = geo.plots.length;
   const now = new Date();
   document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'}) + '  ' +
@@ -793,7 +796,7 @@ WAR = """<!DOCTYPE html>
 <header>
   <span class="pill" id="clock"></span>
   <span class="pill">⚔️ <b id="c-field">0</b> on field</span>
-  <span class="pill">⛺ <b id="c-camp">0</b> at camp</span>
+  <span class="pill">⛺ <b id="c-camp">0</b> at camp <span id="c-hidden" style="opacity:.55"></span></span>
   <select id="proj" class="pill" title="project"></select>
   <nav><a href="#" id="spinBtn">▶ 360°</a><a href="/island">village</a><a href="/graph">graph</a></nav>
 </header>
@@ -1164,6 +1167,7 @@ function draw(t, dt) {
   ctx.globalAlpha = 1; smoke = smoke.filter(s => s.l > 0);
   document.getElementById('c-field').textContent = onField;
   document.getElementById('c-camp').textContent = atCamp;
+  document.getElementById('c-hidden').textContent = (D.hidden || 0) > 0 ? '+' + D.hidden : '';
   const now = new Date();
   document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'}) + ' · Kurukshetra, day 14';
   if (selected) showCard(selected);
@@ -1694,11 +1698,24 @@ def snapshot(params):
         max_n = int(q.get("max", [args.max])[0])
     except ValueError:
         max_n = args.max
+    try:
+        camp_max = int(q.get("campmax", [args.camp_max])[0])
+    except ValueError:
+        camp_max = args.camp_max
+    camp_max = max(0, camp_max)
     fleet_path = q.get("fleet", [args.fleet])[0]
     now = int(time.time() * 1000)
     con = CORE.connect_ro(args.db)
     try:
         sessions = CORE.load_sessions(con, directory, session_focus, max_n, show_all)
+        # Camp would fill with history: always keep the live, trim the idle
+        # to the most recent camp_max (focus mode shows everything).
+        hidden = 0
+        if not session_focus:
+            live_rows = [r for r in sessions if now - r[7] <= args.live_window * 1000]
+            idle_rows = [r for r in sessions if now - r[7] > args.live_window * 1000]
+            hidden = max(0, len(idle_rows) - camp_max)
+            sessions = live_rows + idle_rows[:camp_max]
         ids = [r[0] for r in sessions]
         todos = CORE.load_todos(con, ids)
         tools = CORE.load_last_tools(con, ids)
@@ -1772,7 +1789,8 @@ def snapshot(params):
                 })
     return {
         "now": now, "live": sum(1 for s in out_sessions if s["live"]),
-        "shown": len(out_sessions), "sessions": out_sessions, "fleet": out_fleet,
+        "shown": len(out_sessions), "hidden": hidden,
+        "sessions": out_sessions, "fleet": out_fleet,
         "scope": os.path.basename(directory.rstrip("/")) or directory,
         "dir": directory,
         "projects": projects,
@@ -1850,6 +1868,8 @@ def main(argv=None):
                     help="auto (Mahabharata cast: war, custom cast: island), war, or island")
     ap.add_argument("--no-cast", action="store_true")
     ap.add_argument("--max", type=int, default=25)
+    ap.add_argument("--camp-max", type=int, default=10,
+                    help="max idle sessions shown resting (live always shown)")
     ap.add_argument("--live-window", type=int, default=60)
     global CFG
     CFG = ap.parse_args(argv)
