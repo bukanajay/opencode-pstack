@@ -19,8 +19,9 @@ Scan for:
 
 Findings must point to skills, tools, or MCPs invoked in this transcript. Speculative routings to skills the parent never opened do not count. To check whether a skill was used, scan the transcript for:
 
-- `Read` tool calls against any `SKILL.md` file (workspace `.cursor/skills/`, user-level `~/.cursor/skills/`, or plugin-installed paths under `~/.cursor/plugins/`)
-- `Task` prompts that name a skill path
+- `Read` tool calls against any `SKILL.md` file: workspace skill folders (`.cursor/skills/`, `.claude/skills/`, `.agents/skills/`, `.pi/skills/`), user-level ones (`~/.cursor/skills/`, `~/.claude/skills/`, `~/.codex/skills/`, `~/.pi/agent/skills/`, `~/.agents/skills/`), or plugin-installed paths (`~/.cursor/plugins/`, `~/.claude/plugins/`)
+- Skill-invocation tool calls (`Skill` in Claude Code, `skill` in OpenCode)
+- Subagent prompts (`Task`, `Agent`, `task`, `spawn_agent`) that name a skill path
 - Tool calls (Shell, Grep, MCP, etc.) that match a skill's documented commands
 
 Two valid finding shapes:
@@ -28,7 +29,7 @@ Two valid finding shapes:
 - The parent invoked the skill and you found a real gap in its body. Route to the skill's relevant section.
 - The skill was visible in the catalog but did not trigger when it would have helped. Tune the skill's description so future agents pick it up. Route as `tune description: <skill path>`.
 
-If a skill was neither invoked nor a missed-trigger candidate, drop it. Adding text to a skill the parent never opened does not change behavior.
+If a skill was neither invoked nor a missed-trigger candidate, drop it.
 
 Surface 3-5 durable learnings. For each:
 - Principle: one sentence describing what generalizes. State the rule, not the label, no name-dropping.
