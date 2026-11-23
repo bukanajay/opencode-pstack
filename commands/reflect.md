@@ -1,5 +1,5 @@
 ---
-description: Spawn three parallel review subagents over the active transcript, surface learnings, and route each to a concrete edit on an existing skill.
+description: Mine the active transcript for durable learnings and route each to a concrete edit on an existing skill.
 agent: build
 ---
 Load the `reflect` skill with the skill tool and follow it end to end.
